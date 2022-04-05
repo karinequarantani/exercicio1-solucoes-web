@@ -15,7 +15,7 @@
         <div class="cabecalho">
             <h1>Atendimento online</h1>
         </div>
-        <div class="display">
+        <div class="display" id="messages" >
             <div class="atendente">
                 <p>Atendente diz:</p>
                 <div class="mensagem"><span>bla bla bla</span></div>
@@ -24,21 +24,47 @@
                 <p>Atendente diz:</p>
                 <div class="mensagem"><span>bla bla bla</span></div>
             </div>
-            <div class="voce">
-                <p>Você diz:</p>
-                <div class="mensagem"><span>bla bla bla</span></div>
-            </div>
-            <div class="voce">
-                <p >Você diz:</p>
-                <div class="mensagem"><span>bla bla bla</span></div>
-            </div>
-
         </div>
-        <div class="rodape">
-            <input placeholder="Digite sua mensagem..."/>
-            <button class="botao">Enviar</button>
-        </div>
+        <form class="rodape" id="rodape">
+            <input placeholder="Digite sua mensagem..." id="message-input"/>
+            <button type="submit" class="botao">Enviar</button>
+        </form>
     </div>
+
+    <script type="text/javascript">
+        function addMessage(message) {
+            const mainBlock = document.createElement("div")
+            const voceDizBlock = document.createElement("p")
+            const msgBlock = document.createElement("div")
+            const msgTextBlock = document.createElement("span")
+
+            voceDizBlock.innerText = "Você diz:"
+
+            mainBlock.classList.add("voce")
+            msgBlock.classList.add("mensagem")
+
+            msgTextBlock.innerText = message
+
+            mainBlock.appendChild(voceDizBlock)
+            msgBlock.appendChild(msgTextBlock)
+            mainBlock.appendChild(msgBlock)
+
+
+            const messages = document.querySelector("#messages");
+            messages.appendChild(mainBlock)
+        }
+        
+        const forms = document.getElementById("rodape");
+        forms.addEventListener("submit", function(event){
+            event.preventDefault();
+
+            const messageType = document.getElementById("message-input")
+
+            addMessage(messageType.value)
+
+            messageType.value = ""
+        })
+    </script>
     
     
 </body>
